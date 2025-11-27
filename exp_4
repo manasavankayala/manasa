@@ -1,0 +1,44 @@
+txtUserId = getRequestString("UserId"); txtSQL = "SELECT * FROM Users WHERE UserId = " +
+txtUserId;
+SQL Injection Based on 1=1 is Always True:
+Then, the SQL statement will look like this:
+SELECT * FROM Users WHERE UserId = 105 OR 1=1;
+SQL Injection Based on ""="" is Always True:
+uName = getRequestString("username");
+uPass = getRequestString("userpassword");
+sql = 'SELECT * FROM Users WHERE Name ="' + uName + '" AND Pass ="' + uPass + '"'
+Result:
+SELECT * FROM Users WHERE Name ="John Doe" AND Pass ="myPass"
+The code at the server will create a valid SQL statement like this:
+Result :
+
+
+
+SELECT * FROM Users WHERE Name ="" or ""="" AND Pass ="" or ""=""
+SQL Injection Based on Batched SQL Statements:
+SELECT * FROM Users; DROP TABLE Suppliers;
+Example
+txtUserId = getRequestString("UserId");
+txtSQL = "SELECT * FROM Users WHERE UserId = " + txtUserId;
+Ex. No: 4 SQL INJECTION
+Date:
+And the following input:
+User id: 105;
+DROP TABLE Suppliers ;
+The valid SQL statement would look like this:
+Result:
+
+
+
+SELECT * FROM Users WHERE UserId = 105; DROP TABLE Suppliers;
+Use SQL Parameters for Protection:
+Example 1:
+txtUserId = getRequestString("UserId");
+txtSQL = "SELECT * FROM Users WHERE UserId = @0";
+db.Execute(txtSQL,txtUserId);
+Example 2:
+txtNam = getRequestString("CustomerName");
+txtAdd = getRequestString("Address");
+txtCit = getRequestString("City");
+txtSQL = "INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2)";
+db.Execute(txtSQL,txtNam,txtAdd,txtCit);
